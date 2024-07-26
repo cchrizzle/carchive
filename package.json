@@ -1,5 +1,5 @@
 {
-  "name": "cARCHIVE",
+  "name": "carchive",
   "version": "1.0.0",
   "description": "Car and mileage tracker app",
   "main": "server.js",

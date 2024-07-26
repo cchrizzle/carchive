@@ -12,6 +12,7 @@
                         <div class="alert alert-info"><%= el.msg %></div>
                     <% }) %>    
                 <% } %>
+                <p>Welcome to carchive! Sign up for your account</p>
                 <form action="/signup" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
@@ -30,8 +31,10 @@
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                       </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                   </form>
+
+                  <p>Already have an account? <a href='/login'>Login</a></p>
             </section>
         </div>
     </main>
