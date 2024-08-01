@@ -3,6 +3,7 @@
   <div class="row mt-5">
       <div class="col-6">
           <div>
+              <!-- Figure out why realName isn't showing up - so far it's not sending to server at all - <p><strong>Name</strong>: <%= user.realName %></p> --> 
               <p><strong>Username</strong>: <%= user.username %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
@@ -20,7 +21,16 @@
               </div>
               <div class="mb-3">
                 <label for="odometer" class="form-label">Odometer</label>
-                <input type="number" class="form-control" id="odometer" name="odometer"></inp>
+                <input type="number" class="form-control" id="odometer" name="odometer">
+              </div>
+              <!-- 8/1/24: Add ability to autocalculate one of the next 3 fields based on input from 2 -->
+              <div class="mb-3">
+                <label for='gallons' class='form-label'>Gallons</label>
+                <input type='number' min='0.01' step='0.01' class='form-control' id='gallons' name='gallons'>
+              </div>
+              <div class='mb-3'>
+                <label for='costPerGal' class='form-label'>Cost per gallon:</label>
+                <input type='number' min='0.01' step='0.01' class='form-control' id='gallons' name='gallons'>
               </div>
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
@@ -30,6 +40,7 @@
         <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
+            <h2><%= posts[i].date %>: <%= posts[i].odometer %> miles</h2>
             <a href="/post/<%= posts[i]._id%>">
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>

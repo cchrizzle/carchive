@@ -42,6 +42,8 @@ module.exports = {
         image: result.secure_url,
         cloudinaryId: result.public_id,
         odometer: req.body.odometer,
+        gallons: req.body.gallons,
+        costPerGallon: req.body.costPerGallon,
         user: req.user.id,
       });
       console.log('New refuel added!');
