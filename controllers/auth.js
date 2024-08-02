@@ -66,6 +66,7 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
+  console.log(req);
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address.' });
@@ -85,6 +86,7 @@ exports.postSignup = (req, res, next) => {
   });
 
   const user = new User({
+    name: req.body.name,
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,

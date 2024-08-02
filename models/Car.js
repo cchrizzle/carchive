@@ -1,29 +1,25 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
-  title: {
+const CarSchema = new mongoose.Schema({
+  make: {
     type: String,
     required: true,
   },
-  image: {
+  model: {
     type: String,
     require: true,
   },
-  cloudinaryId: {
+  year: {
     type: String,
     require: true,
   },
-  caption: {
+  mileage: {
     type: String,
-    required: true,
-  },
-  likes: {
-    type: Number,
     required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
   createdAt: {
     type: Date,
@@ -31,5 +27,5 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-// JS Backend Web Dev Tutorial 11:36:30 MongoDB collection named here - will give lowercase plural of name 
-module.exports = mongoose.model("Post", PostSchema);
+// JS Backend Web Dev Tutorial 11:36:30 MongoDB collection named here - will give lowercase plural of name
+module.exports = mongoose.model('Car', CarSchema);
