@@ -3,7 +3,13 @@ const validator = require('validator');
 const User = require('../models/User');
 
 exports.getLogin = (req, res) => {
+  console.log(req);
   if (req.user) {
+    // 8/5/24: Checking if this is first login; if so direct to intro page
+    if (!User.isSetupComplete) {
+      return res.redirect('/intro');
+    }
+    // ^ End of added
     return res.redirect('/profile');
   }
   res.render('login', {
@@ -39,6 +45,11 @@ exports.postLogin = (req, res, next) => {
         return next(err);
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
+      // 8/5/24: Checking if this is first login; if so direct to intro page
+      if (!user.isSetupComplete) {
+        return res.redirect('/intro');
+      }
+      // ^ End of added code
       res.redirect(req.session.returnTo || '/profile');
     });
   })(req, res, next);
@@ -58,6 +69,11 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
   if (req.user) {
+    // 8/5/24: Checking if this is first login; if so direct to intro page
+    if (!user.isSetupComplete) {
+      return res.redirect('/intro');
+    }
+    // ^ End of added code
     return res.redirect('/profile');
   }
   res.render('signup', {
@@ -66,7 +82,7 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  console.log(req);
+  // console.log(req);
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address.' });
@@ -90,6 +106,7 @@ exports.postSignup = (req, res, next) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
+    isSetupComplete: req.body.isSetupComplete,
   });
 
   User.findOne(
@@ -112,6 +129,11 @@ exports.postSignup = (req, res, next) => {
           if (err) {
             return next(err);
           }
+          // 8/5/24: Checking if this is first login; if so direct to intro page
+          if (!user.isSetupComplete) {
+            return res.redirect('/intro');
+          }
+          // ^ End of added code
           res.redirect('/profile');
         });
       });

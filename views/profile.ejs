@@ -3,13 +3,18 @@
   <div class="row mt-5">
       <div class="col-6">
           <div>
-              <!-- Figure out why realName isn't showing up - so far it's not sending to server at all - <p><strong>Name</strong>: <%= user.realName %></p> -->
               <p><strong>Username</strong>: <%= user.username %></p>
               <p><strong>Email</strong>: <%= user.email %></p>
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
           </div>
           <div class="mt-5">
-            <h2>Hi <%= user.name %>, welcome to carchive!</h2>
+            <% if(user.name){ %>
+              <h2>Hi <%= user.name %>, welcome to carchive!</h2>
+            <% } else{ %>
+              <h2>Welcome to carchive!</h2>
+            <% } %>
+          </div>
+          <div class="mt-5">
             <h2>New refuel</h2>
             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
@@ -29,9 +34,10 @@
                 <label for='gallons' class='form-label'>Gallons</label>
                 <input type='number' min='0.01' step='0.01' class='form-control' id='gallons' name='gallons'>
               </div>
+              <!-- Put $ next to form input -->
               <div class='mb-3'>
                 <label for='costPerGal' class='form-label'>Cost per gallon:</label>
-                <input type='number' min='0.01' step='0.01' class='form-control' id='gallons' name='gallons'>
+                <input type='number' min='0.01' step='0.01' class='form-control' id='costPerGal' name='costPerGal'>
               </div>
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
