@@ -2,15 +2,26 @@ const passport = require('passport');
 const validator = require('validator');
 const User = require('../models/User');
 
+exports.getTest = (req, res) => {
+  if (req.user) {
+    res.render("test.ejs")
+    // return res.redirect('/test');    // 8/13/24: Not redirecting properly, commented out to test res.render.     - OMG IT WORKED!!!!!!
+    // Own notes after rendering test.ejs: why didn't this method work when I had it in test controller? The only diff here is I have the check for if user is logged in, but I don't see how that would make a difference
+  }
+  // res.render('test', {   // 8/13/24: Commenting these out bc it's redundant of above
+  //   title: 'Test',
+  // });
+}
+
 exports.getLogin = (req, res) => {
-  console.log(req);
+  // console.log(req);
   if (req.user) {
     // 8/5/24: Checking if this is first login; if so direct to intro page
-    if (!User.isSetupComplete) {
-      return res.redirect('/intro');
-    }
+    // if (!User.isSetupComplete) {
+    //   return res.redirect('/intro');
+    // }
     // ^ End of added
-    return res.redirect('/profile');
+    return res.redirect('/profile');   // 8/8/24: changed from /profile to /test - 8/13/24: changed back to profile
   }
   res.render('login', {
     title: 'Login',
@@ -46,11 +57,11 @@ exports.postLogin = (req, res, next) => {
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
       // 8/5/24: Checking if this is first login; if so direct to intro page
-      if (!user.isSetupComplete) {
-        return res.redirect('/intro');
-      }
+      // if (!user.isSetupComplete) {
+      //   return res.redirect('/intro');
+      // }
       // ^ End of added code
-      res.redirect(req.session.returnTo || '/profile');
+      res.redirect(req.session.returnTo || '/profile');    // 8/8/24: changed from "/profile" to "/test"  - 8/13/24: changed back to profile
     });
   })(req, res, next);
 };
@@ -70,11 +81,11 @@ exports.logout = (req, res) => {
 exports.getSignup = (req, res) => {
   if (req.user) {
     // 8/5/24: Checking if this is first login; if so direct to intro page
-    if (!user.isSetupComplete) {
-      return res.redirect('/intro');
-    }
+    // if (!user.isSetupComplete) {
+    //   return res.redirect('/intro');
+    // }
     // ^ End of added code
-    return res.redirect('/profile');
+    return res.redirect('/profile');    // 8/8/24: changed from "/profile" to "/test" - 8/13/24: changed back to "profile"
   }
   res.render('signup', {
     title: 'Create Account',
@@ -82,7 +93,7 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  // console.log(req);
+  console.log(req);
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address.' });
@@ -130,11 +141,14 @@ exports.postSignup = (req, res, next) => {
             return next(err);
           }
           // 8/5/24: Checking if this is first login; if so direct to intro page
-          if (!user.isSetupComplete) {
-            return res.redirect('/intro');
-          }
+          // if (!user.isSetupComplete) {
+          //   return res.redirect('/intro');
+          // }
+          // res.render('intro', {
+          //   title: 'Enter car details',
+          // });
           // ^ End of added code
-          res.redirect('/profile');
+          res.redirect('/profile');    // 8/8/24: changed from "/profile" to "/test" - 8/13/24: changed back to "profile"
         });
       });
     }
