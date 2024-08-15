@@ -8,8 +8,10 @@
       messages.info.forEach( el => { %>
       <div class="alert alert-info"><%= el.msg %></div>
       <% }) %> <% } %>
-      <p>Hi <% name %> Welcome to carchive! Get started by adding your car:</p>
-      <form action="/intro" method="POST">
+
+      <h2>Welcome to carchive! Get started by adding your car:</h2>
+      <form action="/submitIntro" method="POST">    <!-- 8/7/24: changed from "intro" to "submitIntro" after watching class 44/45 (2:21:00) -->
+        <!-- Add on to note above: I need to have something retrieve this intro page first. Need to bring this page up after user registers. => make a -->
         <!-- 8/5/24: Changed /signup to /intro -->
         <div class="mb-3">
           <label for="carMake" class="form-label">Car Make</label>
