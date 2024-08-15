@@ -17,7 +17,7 @@ router.get('/logout', authController.logout);
 // Route for intro - 8/5/24: don't think I need this since I just added boolean for checking if user completed setup to bring intro - nvm think I do need since I have the intro post in my "intro" view
 // router.post('/intro', ensureAuth, authController.postLogin);
 // router.get('/intro', ensureAuth, authController.getLogin);
-router.get('/intro', ensureAuth, authController.postSignup);
+router.get('/intro', ensureAuth, authController.getIntro);
 // router.get('/intro', ensureAuth, authController.getLogin);
 
 // 8/7/24: post request for intro should set isSetupComplete to true and load profile

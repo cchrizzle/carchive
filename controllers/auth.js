@@ -4,13 +4,35 @@ const User = require('../models/User');
 
 exports.getTest = (req, res) => {
   if (req.user) {
-    res.render("test.ejs")
+    res.render('test')
     // return res.redirect('/test');    // 8/13/24: Not redirecting properly, commented out to test res.render.     - OMG IT WORKED!!!!!!
     // Own notes after rendering test.ejs: why didn't this method work when I had it in test controller? The only diff here is I have the check for if user is logged in, but I don't see how that would make a difference
   }
   // res.render('test', {   // 8/13/24: Commenting these out bc it's redundant of above
   //   title: 'Test',
   // });
+}
+
+exports.getIntro = (req, res) => {
+  console.log(req)
+  if(req.user) {
+    if (!User.isSetupComplete) {
+      return res.render('intro');
+    }
+    res.redirect('/profile')
+  }
+}
+
+
+// 8/14/24 night left off - finish rest of method (submit, redirect)
+exports.submitIntro = (req, res) => {
+  const car = new Car({
+    make: req.body.make,
+    model: req.body.model,
+    year: req.body.year,
+    odometer: req.body.odometer,
+    owner: req.user.id
+  });
 }
 
 exports.getLogin = (req, res) => {
@@ -93,7 +115,6 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  console.log(req);
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address.' });
@@ -142,7 +163,11 @@ exports.postSignup = (req, res, next) => {
           }
           // 8/5/24: Checking if this is first login; if so direct to intro page
           // if (!user.isSetupComplete) {
-          //   return res.redirect('/intro');
+            // res.render("intro.ejs")
+            // return res.redirect('/intro');
+            // res.render('intro', {
+            //   title: 'Enter car details',
+            // })
           // }
           // res.render('intro', {
           //   title: 'Enter car details',
