@@ -16,7 +16,7 @@
           </div>
           <div class="mt-5">
             <h2>New refuel</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+            <form action="/refuel/createRefuel" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
                 <label for="imgUpload" class="form-label">Image</label>
                 <input type="file" class="form-control" id="imageUpload" name="file">
@@ -45,11 +45,11 @@
       </div>
       <div class="col-6">
         <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
+        <% for(var i=0; i<refuels.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
-            <h2><%= posts[i].date %>: <%= posts[i].odometer %> miles</h2>
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
+            <h2><%= refuels[i].date %>: <%= refuels[i].odometer %> miles</h2><!-- 8/20/24: Date is wrong, showing 8/19/24 for dates entered as 8/20/24 -->
+            <a href="/refuel/<%= refuels[i]._id%>">
+              <img class="img-fluid" src="<%= refuels[i].image%>">
             </a>
           </li>
         <% } %>

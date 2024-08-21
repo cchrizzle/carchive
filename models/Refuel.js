@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
+const RefuelSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
@@ -22,8 +22,9 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   costPerGallon: {
-    type: Number,
-    required: true,
+    type: Number,   // 8/20/24: setting this to required gives errors:
+        // Post validation failed: costPerGallon: Path `costPerGallon` is required.
+        // ValidatorError: Path `costPerGallon` is required.
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -36,4 +37,4 @@ const PostSchema = new mongoose.Schema({
 });
 
 // JS Backend Web Dev Tutorial 11:36:30 MongoDB collection named here - will give lowercase plural of name
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Refuel', RefuelSchema);
