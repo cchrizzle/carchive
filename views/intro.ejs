@@ -1,39 +1,64 @@
 <%- include('partials/header') -%>
-    <main class="container">
-        <div class="row justify-content-center">
-            <section class="col-6 mt-5">
-                <% if (locals.messages.errors) { %>
-                    <% messages.errors.forEach( el => { %>
-                        <div class="alert alert-danger"><%= el.msg %></div>
-                    <% }) %>    
-                <% } %>
-                <% if (locals.messages.info) { %>
-                    <% messages.info.forEach( el => { %>
-                        <div class="alert alert-info"><%= el.msg %></div>
-                    <% }) %>    
-                <% } %>
-                <p>Hi <% name %> Welcome to carchive! Get started by adding your car:</p>
-                <form action="/signup" method="POST">
-                    <div class="mb-3">
-                        <label for="carMake" class="form-label">Car Make</label>
-                        <input type="text" class="form-control" id="carMake" name="carMake" value='Ex: "Honda"'>
-                      </div>
-                      <div class="mb-3">
-                        <label for="carModel" class="form-label">Car Model</label>
-                        <input type="text" class="form-control" id="carModel" name="carModel" value='Ex: "Accord"'>
-                      </div>
-                      <div class="mb-3">
-                        <label for="carYear" class="form-label">Car Year</label>
-                        <input type="number" class="form-control" id="carYear" name="carYear" value='Ex: 2024'>
-                      </div>
-                      <div class="mb-3">
-                        <label for="odometer" class="form-label">Odometer</label>
-                        <input type="number" class="form-control" id="odometer" name="odometer" value='Current mileage'>
-                      </div>
-                    <button type="submit" class="btn btn-primary">Take me to my garage!</button>
-                  </form>
-            </section>
+<main class="container">
+  <div class="row justify-content-center">
+    <section class="col-6 mt-5">
+      <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+      <div class="alert alert-danger"><%= el.msg %></div>
+      <% }) %> <% } %> <% if (locals.messages.info) { %> <%
+      messages.info.forEach( el => { %>
+      <div class="alert alert-info"><%= el.msg %></div>
+      <% }) %> <% } %>
+
+      <h2>Welcome to carchive! Get started by adding your car:</h2>
+      <form action="/submitIntro" method="POST">    <!-- 8/7/24: changed from "intro" to "submitIntro" after watching class 44/45 (2:21:00) -->
+        <!-- Add on to note above: I need to have something retrieve this intro page first. Need to bring this page up after user registers. => make a -->
+        <!-- 8/5/24: Changed /signup to /intro -->
+        <div class="mb-3">
+          <label for="carMake" class="form-label">Car Make</label>
+          <input
+            type="text"
+            class="form-control"
+            id="carMake"
+            name="carMake"
+            value='Ex: "Honda"'
+          />
         </div>
-    </main>
+        <div class="mb-3">
+          <label for="carModel" class="form-label">Car Model</label>
+          <input
+            type="text"
+            class="form-control"
+            id="carModel"
+            name="carModel"
+            value='Ex: "Accord"'
+          />
+        </div>
+        <div class="mb-3">
+          <label for="carYear" class="form-label">Car Year</label>
+          <input
+            type="number"
+            class="form-control"
+            id="carYear"
+            name="carYear"
+            value="Ex: 2024"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="odometer" class="form-label">Odometer</label>
+          <input
+            type="number"
+            class="form-control"
+            id="odometer"
+            name="odometer"
+            value="Current mileage"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Take me to my garage!
+        </button>
+      </form>
+    </section>
+  </div>
+</main>
 
 <%- include('partials/footer') -%>
