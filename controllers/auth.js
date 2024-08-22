@@ -13,27 +13,19 @@ exports.getTest = (req, res) => {
   // });
 }
 
-exports.getIntro = (req, res) => {
-  console.log(req)
-  if(req.user) {
-    if (!User.isSetupComplete) {
-      return res.render('intro');
-    }
-    res.redirect('/profile')
-  }
-}
 
 
 // 8/14/24 night left off - finish rest of method (submit, redirect)
-exports.submitIntro = (req, res) => {
-  const car = new Car({
-    make: req.body.make,
-    model: req.body.model,
-    year: req.body.year,
-    odometer: req.body.odometer,
-    owner: req.user.id
-  });
-}
+// 8/22/24: submitIntro is also in intro controller - going to use introController
+// exports.submitIntro = (req, res) => {
+//   const car = new Car({
+//     make: req.body.make,
+//     model: req.body.model,
+//     year: req.body.year,
+//     odometer: req.body.odometer,
+//     owner: req.user.id
+//   });
+// }
 
 exports.getLogin = (req, res) => {
   // console.log(req);

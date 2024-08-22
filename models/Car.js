@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const CarSchema = new mongoose.Schema({
-  make: {
+  carMake: {
     type: String,
-    required: true,
+    // required: true,    // 8/22/24: Wasn't working before I disabled this, not sure why
   },
-  model: {
+  carModel: {
     type: String,
     require: true,
   },
-  year: {
+  carYear: {
     type: String,
     require: true,
   },

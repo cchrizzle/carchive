@@ -1,12 +1,25 @@
 const cloudinary = require('../middleware/cloudinary');
 // const Post = require('../models/Post'); // 8/2/24: Change to Car?
 const Car = require('../models/Car'); // Added 8/5/24
+const User = require('../models/User');
 
 // 8/2/24: Grabbing from car model?
 // copied from posts controller
 
 module.exports = {
+  // 8/22/24: Moved getIntro here from auth controller
+  getIntro: (req, res) => {
+    console.log(req)
+    if(req.user) {
+      if (!User.isSetupComplete) {
+        return res.render('intro');
+      }
+      res.redirect('/profile')
+    }
+  },
+
   // 8/5/24: Trying out retrieving profile after submitting intro
+  // 8/22/24: submitIntro is also in auth controller
   submitIntro: async (req, res) => {
     try {
       await Car.create({
@@ -16,22 +29,8 @@ module.exports = {
         odometer: req.body.odometer,
         user: req.body.user,
       });
+      console.log('New car added!');
       res.redirect('/profile');
-    } catch (err) {
-      console.log(err);
-    }
-  },
-
-  // 8/1/24: Loads profile page
-  // 8/2/24: Still load profile page, only need this page for user to enter car info
-  getProfile: async (req, res) => {
-    try {
-      // 9:10:00: Since we have a session each request (req) contains the logged-in users' info: req.user
-      // 9:13:30: console.log(req.user) to see everything
-      // Grabbing just the posts of the logged-in user
-      const cars = await Car.find({ user: req.user.id }); // 8/2/24: Change to Car.find?
-      // 9:12:20: Sending post data from MongoDb and user data to ejs template
-      res.render('profile.ejs', { cars: cars, user: req.user });
     } catch (err) {
       console.log(err);
     }
@@ -56,21 +55,27 @@ module.exports = {
   // 8/1/24: Creates post - match fields to models and profile ejs
   // 8/2/24: This is more for refuels - createCar method?
   createCar: async (req, res) => {
+    console.log(req)
     try {
       // Upload image to cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path);
+      // const result = await cloudinary.uploader.upload(req.file.path);
 
       // 9:19:10: Media is stored on cloudinary - the above request responds with url to media and the media id that you will need when deleting content
       await Car.create({
         date: req.body.date,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
+        // image: result.secure_url,
+        // cloudinaryId: result.public_id,
+        // odometer: req.body.odometer,
+        // gallons: req.body.gallons,
+        // costPerGallon: req.body.costPerGallon,
+        // user: req.user.id,
+        make: req.body.carMake,
+        model: req.body.carModel,
+        year: req.body.carYear,
         odometer: req.body.odometer,
-        gallons: req.body.gallons,
-        costPerGallon: req.body.costPerGallon,
-        user: req.user.id,
+        user: req.user._id,
       });
-      console.log('New refuel added!');
+      console.log('New car added!');
       res.redirect('/profile');
     } catch (err) {
       console.log(err);
