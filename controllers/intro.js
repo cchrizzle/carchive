@@ -1,3 +1,4 @@
+// @ts-check
 const cloudinary = require('../middleware/cloudinary');
 // const Post = require('../models/Post'); // 8/2/24: Change to Car?
 const Car = require('../models/Car'); // Added 8/5/24
@@ -9,7 +10,6 @@ const User = require('../models/User');
 module.exports = {
   // 8/22/24: Moved getIntro here from auth controller
   getIntro: (req, res) => {
-    console.log(req)
     if(req.user) {
       if (!User.isSetupComplete) {
         return res.render('intro');
@@ -20,21 +20,22 @@ module.exports = {
 
   // 8/5/24: Trying out retrieving profile after submitting intro
   // 8/22/24: submitIntro is also in auth controller
-  submitIntro: async (req, res) => {
-    try {
-      await Car.create({
-        make: req.body.make,
-        model: req.body.model,
-        year: req.body.year,
-        odometer: req.body.odometer,
-        user: req.body.user,
-      });
-      console.log('New car added!');
-      res.redirect('/profile');
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  // 8/26/24: Commented out, using createCar instead
+  // submitIntro: async (req, res) => {
+  //   try {
+  //     await Car.create({
+  //       make: req.body.carMake,
+  //       model: req.body.carModel,
+  //       year: req.body.carYear,
+  //       odometer: req.body.odometer,
+  //       user: req.body.user,
+  //     });
+  //     console.log('New car added!');
+  //     res.redirect('/profile');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
   // 8/1/24: Loads individual post
   // 9:16:00: Deleted getFeed promise
   getCar: async (req, res) => {
@@ -62,16 +63,16 @@ module.exports = {
 
       // 9:19:10: Media is stored on cloudinary - the above request responds with url to media and the media id that you will need when deleting content
       await Car.create({
-        date: req.body.date,
+        // date: req.body.date,
         // image: result.secure_url,
         // cloudinaryId: result.public_id,
         // odometer: req.body.odometer,
         // gallons: req.body.gallons,
         // costPerGallon: req.body.costPerGallon,
         // user: req.user.id,
-        make: req.body.carMake,
-        model: req.body.carModel,
-        year: req.body.carYear,
+        carMake: req.body.carMake,
+        carModel: req.body.carModel,
+        carYear: req.body.carYear,
         odometer: req.body.odometer,
         user: req.user._id,
       });

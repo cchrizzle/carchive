@@ -14,6 +14,16 @@
               <h2>Welcome to carchive!</h2>
             <% } %>
           </div>
+          <div class="col-6">
+            <ul class="row list-unstyled">
+            <% for(var i=0; i<cars.length; i++) {%>
+              <li class="col-6 justify-content-between mt-5">
+                <a href="/car/<%= cars[i]._id%>">
+                  <h3><%= cars[i].carYear%> <%= cars[i].carMake%> <%= cars[i].carModel%></h3></a>
+              </li>
+            <% } %>
+            </ul>
+          </div>
           <div class="mt-5">
             <h2>New refuel</h2>
             <form action="/refuel/createRefuel" enctype="multipart/form-data" method="POST">

@@ -1,16 +1,19 @@
 const cloudinary = require('../middleware/cloudinary');
 const Refuel = require('../models/Refuel');
+const Car = require('../models/Car');
 
 module.exports = {
   // 8/1/24: Loads profile page
   getProfile: async (req, res) => {
+    // console.log(req)
     try {
       // 9:10:00: Since we have a session each request (req) contains the logged-in users' info: req.user
       // 9:13:30: console.log(req.user) to see everything
       // Grabbing just the posts of the logged-in user
       const refuels = await Refuel.find({ user: req.user.id });
       // 9:12:20: Sending post data from MongoDb and user data to ejs template
-      res.render('profile.ejs', { refuels: refuels, user: req.user });
+      const cars = await Car.find({user: req.user.id })
+      res.render('profile.ejs', { cars: cars, refuels: refuels, user: req.user });
     } catch (err) {
       console.log(err);
     }
@@ -32,7 +35,7 @@ module.exports = {
 
   // 8/1/24: Creates post - match fields to models and profile ejs
   createRefuel: async (req, res) => {
-    console.log(req)
+    // console.log(req)
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
