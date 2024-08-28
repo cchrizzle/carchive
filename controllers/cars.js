@@ -9,10 +9,10 @@ const User = require('../models/User');
 
 module.exports = {
   // 8/22/24: Moved getIntro here from auth controller
-  getIntro: (req, res) => {
+  addCar: (req, res) => {
     if(req.user) {
       if (!User.isSetupComplete) {
-        return res.render('intro');
+        return res.render('addCar', {user: req.user});
       }
       res.redirect('/profile')
     }

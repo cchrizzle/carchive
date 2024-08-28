@@ -3,7 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/auth');
 const homeController = require('../controllers/home');
 const refuelsController = require('../controllers/refuels');
-const introController = require('../controllers/intro')     // Added 8/22/24
+const carsController = require('../controllers/cars')     // Added 8/22/24
 const { ensureAuth } = require('../middleware/auth');
 
 // Main Routes - simplified for now
@@ -16,9 +16,9 @@ router.post('/login', authController.postLogin);
 router.get('/logout', authController.logout);
 
 // Route for intro - 8/5/24: don't think I need this since I just added boolean for checking if user completed setup to bring intro - nvm think I do need since I have the intro post in my "intro" view
-router.post('/createCar', ensureAuth, introController.createCar);
+router.post('/createCar', ensureAuth, carsController.createCar);
 // router.get('/intro', ensureAuth, authController.getLogin);
-router.get('/intro', ensureAuth, introController.getIntro);
+router.get('/addCar', ensureAuth, carsController.addCar);
 // router.get('/intro', ensureAuth, authController.getLogin);
 
 // 8/7/24: post request for intro should set isSetupComplete to true and load profile

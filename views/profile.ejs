@@ -14,6 +14,8 @@
               <h2>Welcome to carchive!</h2>
             <% } %>
           </div>
+
+          <!-- Cars -->
           <div class="col-6">
             <ul class="row list-unstyled">
             <% for(var i=0; i<cars.length; i++) {%>
@@ -23,7 +25,12 @@
               </li>
             <% } %>
             </ul>
+            <div class="row justify-content-center mt-5">
+              <a class="btn btn-primary" href="/addCar">Add Car</a>
+            </div>  
           </div>
+
+          <!-- Refuel -->
           <div class="mt-5">
             <h2>New refuel</h2>
             <form action="/refuel/createRefuel" enctype="multipart/form-data" method="POST">
@@ -53,6 +60,8 @@
             </form>
           </div>
       </div>
+
+      <!-- Previous Refuels -->
       <div class="col-6">
         <ul class="row list-unstyled">
         <% for(var i=0; i<refuels.length; i++) {%>
