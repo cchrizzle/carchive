@@ -72,7 +72,7 @@ module.exports = {
         carMake: req.body.carMake,
         carModel: req.body.carModel,
         carYear: req.body.carYear,
-        odometer: req.body.odometer,
+        initialOdometer: req.body.initialOdometer,
         user: req.user._id,
       });
       console.log('New car added!');

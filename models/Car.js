@@ -13,7 +13,7 @@ const CarSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  odometer: {
+  initialOdometer: {
     type: String,
     required: true,
   },

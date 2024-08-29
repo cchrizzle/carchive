@@ -22,7 +22,7 @@
             <% for(var i=0; i<cars.length; i++) {%>
               <li> <!-- 8/28/24: took out "class="col-6 justify-content-between mt-5"" -->
                 <a href="/car/<%= cars[i]._id%>">
-                  <h3><%= cars[i].carYear%> <%= cars[i].carMake%> <%= cars[i].carModel%></h3></a>
+                  <h3><%= cars[i].carYear%> <%= cars[i].carMake%> <%= cars[i].carModel%></h3></a><span>Started at <%= cars[i].initialOdometer %> miles</span>
               </li>
             <% } %>
             </ul>
@@ -76,11 +76,16 @@
 
       <!-- Previous Refuels -->
       <div class="col-6">
-        <h3>Previous Refuels:</h3>
+        <h3>Refuel History:</h3>
         <ul class="row list-unstyled">
-        <% for(var i=0; i<refuels.length; i++) {%>
+        <% for(var i=refuels.length - 1; i >= 0; i--) {%>
           <li class="col-6 justify-content-between mt-5">
-            <h2><%= refuels[i].date %>: <%= refuels[i].odometer %> miles</h2><!-- 8/20/24: Date is wrong, showing 8/19/24 for dates entered as 8/20/24 -->
+            <% if(cars){ %>
+              <h2><%= refuels[i].date %>: <%= cars[i].carYear%> <%= cars[i].carMake %> <%= cars[i].carModel %> <%= refuels[i].odometer %> miles</h2><!-- 8/20/24: Date is wrong, showing 8/19/24 for dates entered as 8/20/24 -->
+            <% } else{ %>
+              <h2><%= refuels[i].date %>: <%= refuels[i].odometer %> miles</h2>
+            <% } %>
+            
             <a href="/refuel/<%= refuels[i]._id%>">
               <img class="img-fluid" src="<%= refuels[i].image%>">
             </a>

@@ -48,7 +48,7 @@ module.exports = {
         gallons: req.body.gallons,
         costPerGallon: req.body.costPerGallon,
         user: req.user.id,
-        carId: req.body.car,
+        carId: req.body.carId,
         createdAt: req.body.createdAt,
       });
       console.log('New refuel added!');
@@ -58,6 +58,8 @@ module.exports = {
     }
   },
   likeRefuel: async (req, res) => {
+    console.log(req)
+    console.log(res)
     try {
       await Refuel.findOneAndUpdate(
         { _id: req.params.id },
@@ -72,6 +74,7 @@ module.exports = {
     }
   },
   deleteRefuel: async (req, res) => {
+    console.log(req)
     try {
       // Find post by id
       let refuel = await Refuel.findById({ _id: req.params.id });
