@@ -17,9 +17,10 @@
 
           <!-- Cars -->
           <div class="col-6">
+            <h3>Your Cars:</h3>
             <ul class="row list-unstyled">
             <% for(var i=0; i<cars.length; i++) {%>
-              <li class="col-6 justify-content-between mt-5">
+              <li> <!-- 8/28/24: took out "class="col-6 justify-content-between mt-5"" -->
                 <a href="/car/<%= cars[i]._id%>">
                   <h3><%= cars[i].carYear%> <%= cars[i].carMake%> <%= cars[i].carModel%></h3></a>
               </li>
@@ -32,8 +33,20 @@
 
           <!-- Refuel -->
           <div class="mt-5">
-            <h2>New refuel</h2>
+            <h2>New Refuel:</h2>
             <form action="/refuel/createRefuel" enctype="multipart/form-data" method="POST">
+
+              <!-- 8/28/24: Trying to add dropdown list of user's cars - DROPDOWN'S WORKING!!!! Now just need to figure out how to pull up most recent odometer entry when selecting car and have submission send to car's own refuels db (will do by using car id) -->
+              <label for="carId">Car:</label>
+              <select name="carId" id="carId">
+                <% for(let i = 0; i < cars.length; i++) {%>
+                  <option value="<%= cars[i].id %>"><%= cars[i].carYear%> <%= cars[i].carMake %> <%= cars[i].carModel %></option>
+                <% } %>
+              </select>
+              <br><br>
+              <!-- <input type="submit" value="Submit"> -->
+              <!-- End of dropdown list -->
+
               <div class="mb-3">
                 <label for="imgUpload" class="form-label">Image</label>
                 <input type="file" class="form-control" id="imageUpload" name="file">
@@ -53,8 +66,8 @@
               </div>
               <!-- Put $ next to form input -->
               <div class='mb-3'>
-                <label for='costPerGal' class='form-label'>Cost per gallon:</label>
-                <input type='number' min='0.01' step='0.01' class='form-control' id='costPerGal' name='costPerGal'>
+                <label for='costPerGallon' class='form-label'>Cost per gallon:</label>
+                <input type='number' min='0.01' step='0.01' class='form-control' id='costPerGallon' name='costPerGallon'>
               </div>
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
@@ -63,6 +76,7 @@
 
       <!-- Previous Refuels -->
       <div class="col-6">
+        <h3>Previous Refuels:</h3>
         <ul class="row list-unstyled">
         <% for(var i=0; i<refuels.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
@@ -71,6 +85,7 @@
               <img class="img-fluid" src="<%= refuels[i].image%>">
             </a>
           </li>
+          <!-- 8/28/24: Add option for deleting car -->
         <% } %>
         </ul>
         <div class="row justify-content-center mt-5">

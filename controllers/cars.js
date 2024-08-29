@@ -56,7 +56,6 @@ module.exports = {
   // 8/1/24: Creates post - match fields to models and profile ejs
   // 8/2/24: This is more for refuels - createCar method?
   createCar: async (req, res) => {
-    console.log(req)
     try {
       // Upload image to cloudinary
       // const result = await cloudinary.uploader.upload(req.file.path);

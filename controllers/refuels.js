@@ -5,7 +5,6 @@ const Car = require('../models/Car');
 module.exports = {
   // 8/1/24: Loads profile page
   getProfile: async (req, res) => {
-    // console.log(req)
     try {
       // 9:10:00: Since we have a session each request (req) contains the logged-in users' info: req.user
       // 9:13:30: console.log(req.user) to see everything
@@ -35,7 +34,7 @@ module.exports = {
 
   // 8/1/24: Creates post - match fields to models and profile ejs
   createRefuel: async (req, res) => {
-    // console.log(req)
+    console.log(req)
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
@@ -49,6 +48,7 @@ module.exports = {
         gallons: req.body.gallons,
         costPerGallon: req.body.costPerGallon,
         user: req.user.id,
+        carId: req.body.car,
         createdAt: req.body.createdAt,
       });
       console.log('New refuel added!');
@@ -74,7 +74,7 @@ module.exports = {
   deleteRefuel: async (req, res) => {
     try {
       // Find post by id
-      let refuel = await Post.findById({ _id: req.params.id });
+      let refuel = await Refuel.findById({ _id: req.params.id });
       // Delete image from cloudinary
       await cloudinary.uploader.destroy(refuel.cloudinaryId);
       // Delete post from db

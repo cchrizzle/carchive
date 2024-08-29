@@ -23,12 +23,16 @@ const RefuelSchema = new mongoose.Schema({
   },
   costPerGallon: {
     type: Number,   // 8/20/24: setting this to required gives errors:
+    required: true,
         // Post validation failed: costPerGallon: Path `costPerGallon` is required.
         // ValidatorError: Path `costPerGallon` is required.
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+  },
+  carId: {
+    type: mongoose.Schema.Types.ObjectId,
   },
   createdAt: {
     type: Date,

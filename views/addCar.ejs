@@ -14,10 +14,20 @@
       <% } else{ %>
         <h2>Welcome to carchive!</h2>
       <% } %>
-      
+
       <form action="/createCar" method="POST">    <!-- 8/7/24: changed from "intro" to "submitIntro" after watching class 44/45 (2:21:00) -->
         <!-- Add on to note above: I need to have something retrieve this intro page first. Need to bring this page up after user registers. => make a "isSetUpComplete" key with default "false" value and have into page load if value is false -->
         <!-- 8/5/24: Changed /signup to /intro -->
+        <div class="mb-3">
+          <label for="carYear" class="form-label">Car Year</label>
+          <input
+            type="number"
+            class="form-control"
+            id="carYear"
+            name="carYear"
+            value="Ex: 2024"
+          />
+        </div>
         <div class="mb-3">
           <label for="carMake" class="form-label">Car Make</label>
           <input
@@ -36,16 +46,6 @@
             id="carModel"
             name="carModel"
             value='Ex: "Accord"'
-          />
-        </div>
-        <div class="mb-3">
-          <label for="carYear" class="form-label">Car Year</label>
-          <input
-            type="number"
-            class="form-control"
-            id="carYear"
-            name="carYear"
-            value="Ex: 2024"
           />
         </div>
         <div class="mb-3">
