@@ -21,7 +21,7 @@
             <ul class="row list-unstyled">
             <% for(var i=0; i<cars.length; i++) {%>
               <li> <!-- 8/28/24: took out "class="col-6 justify-content-between mt-5"" -->
-                <a href="/car/<%= cars[i]._id%>">
+                <a href="/cars/<%= cars[i]._id%>">
                   <h3><%= cars[i].carYear%> <%= cars[i].carMake%> <%= cars[i].carModel%></h3></a><span>Started at <%= cars[i].initialOdometer %> miles</span>
               </li>
             <% } %>
@@ -69,21 +69,28 @@
                 <label for='costPerGallon' class='form-label'>Cost per gallon:</label>
                 <input type='number' min='0.01' step='0.01' class='form-control' id='costPerGallon' name='costPerGallon'>
               </div>
+              <!-- 9/4/24: Trying to add conditional for automatically calculating total if gallons and cost per gallon fields entered - took out and pasted in Joplin -->
+              <div class='mb-3'>
+                <label for='totalCost' class='form-label'>Total:</label>
+                <input type='number' min='0.01' step='0.01' class='form-control' id='totalCost' name='totalCost'>
+              </div>
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
           </div>
       </div>
 
+
+
       <!-- Previous Refuels -->
       <div class="col-6">
         <h3>Refuel History:</h3>
         <ul class="row list-unstyled">
-        <% for(var i=refuels.length - 1; i >= 0; i--) {%>
+        <% for(let i=refuels.length - 1; i >= 0; i--) {%>
           <li class="col-6 justify-content-between mt-5">
             <% if(cars){ %>
-              <h2><%= refuels[i].date %>: <%= cars[i].carYear%> <%= cars[i].carMake %> <%= cars[i].carModel %> <%= refuels[i].odometer %> miles</h2><!-- 8/20/24: Date is wrong, showing 8/19/24 for dates entered as 8/20/24 -->
+              <h2><%= refuels[i].date %>: <%=  findCarBasedOnRefuelId(refuels[i].carId, {cars}).carYear%> <%= findCarBasedOnRefuelId(refuels[i].carId, {cars}).carMake %> <%= findCarBasedOnRefuelId(refuels[i].carId, {cars}).carModel %> - <%= findCarBasedOnRefuelId(refuels[i].carId, {cars}).odometer %> miles</h2><!-- 8/20/24: Date is wrong, showing 8/19/24 for dates entered as 8/20/24 -->
             <% } else{ %>
-              <h2><%= refuels[i].date %>: <%= refuels[i].odometer %> miles</h2>
+              <h2><%= refuels[i].date %>: <h2%= refuels[i].odometer %> miles</h2>
             <% } %>
             
             <a href="/refuel/<%= refuels[i]._id%>">
@@ -91,7 +98,7 @@
             </a>
           </li>
           <!-- 8/28/24: Add option for deleting car -->
-        <% } %>
+        <% } %> 
         </ul>
         <div class="row justify-content-center mt-5">
           <a class="btn btn-primary" href="/feed">Return to Feed</a>

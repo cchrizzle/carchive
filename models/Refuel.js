@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const RefuelSchema = new mongoose.Schema({
   date: {
     type: Date,
+    default: Date.now,
     required: true,
   },
   image: {
@@ -22,10 +23,12 @@ const RefuelSchema = new mongoose.Schema({
     required: true,
   },
   costPerGallon: {
-    type: Number,   // 8/20/24: setting this to required gives errors:
+    type: Number,
     required: true,
-        // Post validation failed: costPerGallon: Path `costPerGallon` is required.
-        // ValidatorError: Path `costPerGallon` is required.
+  },
+  totalCost: {
+    type: Number,
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +36,7 @@ const RefuelSchema = new mongoose.Schema({
   },
   carId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Car',   // Used for populate method
   },
   createdAt: {
     type: Date,
