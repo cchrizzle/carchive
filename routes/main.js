@@ -9,6 +9,7 @@ const { ensureAuth } = require('../middleware/auth');
 // Main Routes - simplified for now
 router.get('/', homeController.getIndex);
 router.get('/profile', ensureAuth, refuelsController.getProfile);
+router.get('/cars/:id', ensureAuth, carsController.getCar)
 
 // Routes for user login/signup
 router.get('/login', authController.getLogin);
@@ -17,7 +18,7 @@ router.get('/logout', authController.logout);
 
 // Route for intro - 8/5/24: don't think I need this since I just added boolean for checking if user completed setup to bring intro - nvm think I do need since I have the intro post in my "intro" view
 router.post('/createCar', ensureAuth, carsController.createCar);
-// router.get('/intro', ensureAuth, authController.getLogin);
+// router.get('/cars/:id', ensureAuth, carsController.getCar);
 router.get('/addCar', ensureAuth, carsController.addCar);
 // router.get('/intro', ensureAuth, authController.getLogin);
 
