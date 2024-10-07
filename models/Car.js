@@ -10,17 +10,19 @@ const CarSchema = new mongoose.Schema({
     require: true,
   },
   carYear: {
-    type: String,
+    type: Number,
     require: true,
   },
   initialOdometer: {
-    type: String,
+    type: Number,
     required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  refuels: [{ type: mongoose.Schema.Types.ObjectId,
+    ref: 'Refuel' }],  // "one to many" relationship
   createdAt: {
     type: Date,
     default: Date.now,

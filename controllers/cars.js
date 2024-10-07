@@ -2,7 +2,7 @@
 const cloudinary = require('../middleware/cloudinary');
 // const Post = require('../models/Post'); // 8/2/24: Change to Car?
 const Car = require('../models/Car'); // Added 8/5/24
-const User = require('../models/User');
+const Refuel = require('../models/Refuel');
 
 // 8/2/24: Grabbing from car model?
 // copied from posts controller
@@ -11,10 +11,7 @@ module.exports = {
   // 8/22/24: Moved getIntro here from auth controller
   addCar: (req, res) => {
     if(req.user) {
-      if (!User.isSetupComplete) {
         return res.render('addCar', {user: req.user});
-      }
-      res.redirect('/profile')
     }
   },
 
@@ -39,6 +36,7 @@ module.exports = {
   // 8/1/24: Loads individual post
   // 9:16:00: Deleted getFeed promise
   getCar: async (req, res) => {
+    // console.log(req)
     try {
       /* 8/5/24: Code from template - left for reference but disregard since I changed "post" to "car":
       9:16:30: id parameter comes from the post routes
@@ -47,7 +45,8 @@ module.exports = {
       id === 65ea45ab462fec3e04252f30
       */
       const car = await Car.findById(req.params.id);
-      res.render('car.ejs', { car: car, user: req.user });
+      const refuel = await Refuel.findById(req.params.id);
+      res.render('car.ejs', { car: car, user: req.user, refuel: refuel });
     } catch (err) {
       console.log(err);
     }
@@ -97,11 +96,7 @@ module.exports = {
   },
   deleteCar: async (req, res) => {
     try {
-      // Find post by id
-      let post = await Car.findById({ _id: req.params.id });
-      // Delete image from cloudinary
-      await cloudinary.uploader.destroy(post.cloudinaryId);
-      // Delete post from db
+      // Delete car from db
       await Car.remove({ _id: req.params.id });
       console.log('Deleted Car');
       res.redirect('/profile');
